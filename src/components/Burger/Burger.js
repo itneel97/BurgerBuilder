@@ -9,19 +9,10 @@ const burger = (props) => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
                 return (<BurgerIngredient key={igKey + i} type={igKey} />);
             });
-        })// reduce accepts function as a input and here it has two arguments previousValue(arr) and currentValue(el) 
+        }) 
         .reduce((arr, el) => {
             return arr.concat(el)
-        }, []); // [] is initial value
-    /** 
-     * we can use flatMap as well
-        var arr = [1, 2, 3, 4];
-        arr.flatMap(x => [x, x * 2]);
-        // is equivalent to
-        arr.reduce((acc, x) => acc.concat([x, x * 2]), []);
-        // O/P: [1, 2, 2, 4, 3, 6, 4, 8]
-    */
-
+        }, []); 
     if (transformedIngredients.length === 0) {
         transformedIngredients = <p>Please start adding Ingredients!</p>
     }
