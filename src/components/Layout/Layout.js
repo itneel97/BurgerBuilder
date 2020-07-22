@@ -14,13 +14,10 @@ class Layout extends Component {
         this.setState({ showSideDrawer: false });
     }
     sideDrawerToggleHandler = () => {
-        // best practice
         this.setState((prevState) => {
             return{ showSideDrawer: !prevState.showSideDrawer };
         });
 
-        // const temp = this.state.showSideDrawer;
-        // this.setState({ showSideDrawer: !temp });
     }
 
 
