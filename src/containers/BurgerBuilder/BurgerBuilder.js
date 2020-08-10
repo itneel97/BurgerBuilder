@@ -27,7 +27,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+        //console.log(this.props);
         axios.get('https://burgerbuilder-dedf7.firebaseio.com/ingredients.json')
             .then(res => {
                 this.setState({ ingredients: res.data })
@@ -86,34 +86,14 @@ class BurgerBuilder extends Component {
     }
     purchaseContinueHandler = () => {
         //alert('and, Here we Go!!!');
-        // this.setState({ loading: true })
-        // const order = {
-        //     ingredient: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Neel',
-        //         address: {
-        //             street: 'main st',
-        //             zipcode: '382721',
-        //             country: 'India'
-        //         },
-        //         email: 'neel@gmail.com'
-        //     },
-        //     deliveryMethod: 'fastest'
-        // }
-        // // path appended to baseURL
-        // axios.post('/orders.json', order)
-        //     .then(response => {
-        //         this.setState({ loading: false, purchasing: false })
-        //     }).catch(error => {
-        //         this.setState({ loading: false, purchasing: false })
-        //     })
+        
         const queryParams = [ ];
         for (let i in this.state.ingredients){
             queryParams.push( encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]) )
             // this is just generating queryString like bacon=0 cheese=1 meat=0 salad=1 
             // console.log( encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
         }
+        queryParams.push('price=' + this.state.totalPrice.toFixed(2))
         const queryString = queryParams.join('&') // joined with & which makes it bacon=0&cheese=1&meat=0&salad=1
         this.props.history.push({
             pathname: '/checkout',
