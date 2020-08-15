@@ -65,10 +65,14 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault();
         this.setState({ loading: true })
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+        }
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.price
-
+            price: this.props.price,
+            orderData: formData
         }
         // path appended to baseURL
         axios.post('/orders.json', order)
@@ -85,15 +89,15 @@ class ContactData extends Component {
         const updatedOrderForm = {
             ...this.state.orderForm
         }
-        const updatedFormElement= { ...updatedOrderForm[inputIdentifier] }
+        const updatedFormElement = { ...updatedOrderForm[inputIdentifier] }
         updatedFormElement.value = event.target.value
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        this.setState({orderForm: updatedOrderForm})
+        this.setState({ orderForm: updatedOrderForm })
     }
 
     render() {
         const fromElementsArray = [];
-        for(let key in this.state.orderForm){
+        for (let key in this.state.orderForm) {
             fromElementsArray.push({
                 id: key,
                 config: this.state.orderForm[key]
@@ -101,15 +105,15 @@ class ContactData extends Component {
         }
 
         let form = (
-            <form>
-                {fromElementsArray.map( element => (
-                    <Input key={element.id} 
-                    elementType={element.config.elementType} 
-                    elementConfig={element.config.elementConfig}
-                    value={element.config.value} 
-                    changed={ (event) => this.inputChangedHandler(event,element.id)} />
+            <form onSubmit={this.orderHandler}>
+                {fromElementsArray.map(element => (
+                    <Input key={element.id}
+                        elementType={element.config.elementType}
+                        elementConfig={element.config.elementConfig}
+                        value={element.config.value}
+                        changed={(event) => this.inputChangedHandler(event, element.id)} />
                 ))}
-                <Button btnType="Success" clicked={this.orderHandler} >ORDER</Button>
+                <Button btnType="Success" >ORDER</Button>
             </form>);
         if (this.state.loading) {
             form = <Spinner />
