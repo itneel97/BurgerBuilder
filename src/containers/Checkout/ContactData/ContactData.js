@@ -111,11 +111,11 @@ class ContactData extends Component {
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
-        if(rules.minLength){
-            isValid = value.length >= rules.minLength  && isValid;
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid;
         }
-        if(rules.maxLength){
-            isValid = value.length <= rules.maxLength  && isValid;
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid;
         }
         return isValid
     }
@@ -149,6 +149,8 @@ class ContactData extends Component {
                         elementType={element.config.elementType}
                         elementConfig={element.config.elementConfig}
                         value={element.config.value}
+                        invalid={!element.config.valid}
+                        shouldValidate={element.config.validation}
                         changed={(event) => this.inputChangedHandler(event, element.id)} />
                 ))}
                 <Button btnType="Success" >ORDER</Button>
