@@ -8,7 +8,7 @@ const order = (props) => {
     for (let ingredientName in props.ingredients) {
         ingredients.push(
             {
-                 
+                //hi 
                 name: ingredientName,
                 amount: props.ingredients[ingredientName]
             })
